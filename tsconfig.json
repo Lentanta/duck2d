@@ -4,6 +4,7 @@
     "module": "CommonJS",
     "sourceMap": true,
     "strict": true,
+    "declaration": true,
     "removeComments": true,
     "outDir": "lib",
   },
