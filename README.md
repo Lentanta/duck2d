@@ -33,24 +33,33 @@ npm install duck2d
 ```typescript
 import Duck2D from "duck2d";
 
-const canvasWidth = 300;
+const canvasWidth = 500;
 const canvasHeight = 300;
-const parentElement = document.body;
 
-const duck = new Duck2D(parentElement, canvasWidth, canvasHeight);
+const duck = new Duck2D({
+  parentElement: document.body,
+  canvasWidth,
+  canvasHeight
+});
 
+// This will run once before update and draw
 duck.initialize((ctx) => {
-  // Your initialize code here
-
   ctx.fillStyle = "black"
-  ctx.fillRect(0,0, canvasWidth, canvasHeight);
-})
+  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+});
 
-duck.update((time, ctx) => {
-  // Your update code here
+duck.update((dt) => {
+  // dt = delta time
+  const time = duck.time; // time is in second
+  textPosX = (Math.abs(Math.sin(time) * 30) + 10);
+});
+
+duck.draw((ctx) => {
+  ctx.fillStyle = "black"
+  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
   ctx.font = "50px Arial";
-  ctx.fillStyle = "white";
-  ctx.fillText("Hello Duck2D!", 5, 50);
-})
+  ctx.fillStyle = "blue";
+  ctx.fillText("Hello Duck2D! ", textPosX, textPosy);
+});
 ```
