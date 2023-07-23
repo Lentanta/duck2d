@@ -4,6 +4,11 @@ class Duck2D {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
 
+  time: number | undefined;
+
+  updateFunc: () => void;
+  drawFunc: () => void;
+
   constructor(
     wrapper: HTMLElement,
     canvasWidth: number,
@@ -19,8 +24,16 @@ class Duck2D {
     this.canvas.height = canvasHeight;
 
     this.ctx = canvas.getContext('2d') || new CanvasRenderingContext2D();
-
     wrapper.appendChild(this.canvas);
+
+    this.updateFunc = () => { };
+    this.drawFunc = () => { };
+
+    requestAnimationFrame((time: number) => {
+      this.time = time;
+      this.updateFunc();
+      this.drawFunc();
+    });
   };
 
   initialize(callback: (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void) {
@@ -28,13 +41,15 @@ class Duck2D {
   };
 
   update(callback: (time: number, ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void) {
-    const gameLoop = () => {
-      requestAnimationFrame((time: number) => {
-        callback(time, this.ctx, this.canvas);
-        gameLoop();
-      });
+    this.updateFunc = () => {
+      callback(this.time || 0, this.ctx, this.canvas)
     };
-    gameLoop();
+  };
+
+  draw(callback: (ctx: CanvasRenderingContext2D) => void) {
+    this.drawFunc = () => {
+      callback(this.ctx)
+    };
   };
 };
 
