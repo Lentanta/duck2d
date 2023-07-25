@@ -42,6 +42,9 @@ const duck = new Duck2D({
   canvasHeight
 });
 
+let textPosX = 5;
+let textPosY = 50;
+
 // This will run once before update and draw
 duck.initialize((ctx) => {
   ctx.fillStyle = "black"
@@ -60,6 +63,6 @@ duck.draw((ctx) => {
 
   ctx.font = "50px Arial";
   ctx.fillStyle = "blue";
-  ctx.fillText("Hello Duck2D! ", textPosX, textPosy);
+  ctx.fillText("Hello Duck2D! ", textPosX, textPosY);
 });
 ```
