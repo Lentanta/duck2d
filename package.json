@@ -1,6 +1,6 @@
 {
   "name": "duck2d",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A HTML canvas based game development framework.",
   "main": "lib/index.js",
   "scripts": {
